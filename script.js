@@ -15,7 +15,14 @@ function loadItems() {
 // Function to create a list item (to avoid repeating code)
 function createListItem(text) {
     let li = document.createElement('li');
-    li.textContent = text;
+    const p = document.createElement('p');
+    p.textContent = text;
+    // li.textContent = text;
+    li.appendChild(p)
+    console.log(p)
+    li.classList.add('style')
+    // li.attributes('class', 'style' )
+    console.log(li)
 
     // Create a delete button
     let btnDelete = document.createElement('button');
@@ -97,3 +104,26 @@ clearBtn.addEventListener('click', () => {
 
 // Load items from localStorage on page load
 loadItems();
+
+
+// function for the filter 
+function search() {
+    const filter = document.getElementById('filter').value;
+    const product = document.querySelectorAll('.style');
+    const pname = document.getElementsByTagName('p');
+
+    for(let i=0; i < pname.length; i++){
+        let matchingValues = product[i].getElementsByTagName('p')[0];
+
+        if(matchingValues){
+            const textValue = matchingValues.textContent || matchingValues.innerHTML
+
+            if(textValue.indexOf(filter) > -1){
+                product[i].style.display = '';
+            }else{
+                product[i].style.display = 'none';
+
+            }
+        }
+    }
+}
